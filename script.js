@@ -60,9 +60,7 @@ async function checkWeather(city) {
       weatherIcon.src = "./img/images/haze.png";
     } else if (weatherCondition.includes("snow")) {
       weatherIcon.src = "./img/images/snow.png";
-    } else {
-      weatherIcon.src = "./img/images/default.png"; // Fallback icon
-    }
+    } 
   } catch (error) {
     alert("City not found. Please enter a valid city name!");
   }
