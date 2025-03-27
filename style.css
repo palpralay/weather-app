@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  user-select: none;
 }
 
 body {
@@ -10,38 +11,37 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+  background: linear-gradient(45deg, #020024 0%, #090979 35%, #00d4ff 100%);
   padding: 20px;
 }
 
 .card {
   width: 100%;
   max-width: 420px;
-  background: linear-gradient(
-    135deg,
-    rgba(24, 100, 215, 0.9),
-    rgba(16, 207, 121, 0.9)
-  );
+  background: rgba(255, 255, 255, 0.1);
   padding: 2rem;
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 1px solid #fff;
-  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .search {
   position: relative;
   width: 100%;
+  display: flex;
+  gap: 10px;
   margin-bottom: 1.5rem;
 }
 
 .search input {
-  width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
+  flex: 1;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
@@ -49,22 +49,37 @@ body {
   font-size: 1rem;
   transition: all 0.3s ease;
 }
+
 input::placeholder {
-    color: #fff;
-    font-style: italic; 
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
 }
+
 .search input:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.15);
 }
 
-.search i {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.8);
+/* 🔹 SEARCH BUTTON STYLING */
+.search button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.search button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.search button i {
   font-size: 1.2rem;
 }
 
@@ -87,11 +102,8 @@ input::placeholder {
   font-weight: 600;
   color: white;
   line-height: 1;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
-.card:hover {
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 5);
-}
-
 
 .location {
   font-size: 2rem;
@@ -114,6 +126,11 @@ input::placeholder {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.col:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .col img {
@@ -131,4 +148,26 @@ input::placeholder {
   color: white;
   font-size: 1.4rem;
   font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  .temperature {
+    font-size: 3rem;
+  }
+
+  .location {
+    font-size: 1.6rem;
+  }
+
+  .details {
+    gap: 1rem;
+  }
+
+  .col {
+    padding: 1rem;
+  }
 }
