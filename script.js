@@ -21,8 +21,14 @@ const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather-icon");
 
+// Function to fetch weather data
 async function checkWeather(city) {
   try {
+    if (!city) {
+      alert("Please enter a city name!");
+      return;
+    }
+
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
     if (!response.ok) {
       throw new Error("City not found");
@@ -31,30 +37,31 @@ async function checkWeather(city) {
     const data = await response.json();
     console.log(data);
 
+    // Updating UI with weather data
     document.querySelector(".location").innerHTML = data.name;
     document.querySelector(".temperature").innerHTML =
       Math.round(data.main.temp) + "°C";
     document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
 
-    // Select weather icon
-    const weatherIcon = document.querySelector(".weather-icon");
+    // Selecting the correct weather icon
     const weatherCondition = data.weather[0].main.toLowerCase();
-    console.log(data.weather);
-    if (data.weather[0].main == "Clouds") {
+    if (weatherCondition.includes("cloud")) {
       weatherIcon.src = "./img/images/clouds.png";
-    } else if (data.weather[0].main == "Clear") {
+    } else if (weatherCondition.includes("clear")) {
       weatherIcon.src = "./img/images/clear.png";
-    } else if (data.weather[0].main == "Rain") {
+    } else if (weatherCondition.includes("rain")) {
       weatherIcon.src = "./img/images/rain.png";
-    } else if (data.weather[0].main == "Drizzle") {
+    } else if (weatherCondition.includes("drizzle")) {
       weatherIcon.src = "./img/images/drizzle.png";
-    } else if (data.weather[0].main == "Mist") {
+    } else if (weatherCondition.includes("mist")) {
       weatherIcon.src = "./img/images/mist.png";
-    } else if (data.weather[0].main == "Haze") {
+    } else if (weatherCondition.includes("haze")) {
       weatherIcon.src = "./img/images/haze.png";
-    } else if (data.weather[0].main == "Snow") {
+    } else if (weatherCondition.includes("snow")) {
       weatherIcon.src = "./img/images/snow.png";
+    } else {
+      weatherIcon.src = "./img/images/default.png"; // Fallback icon
     }
   } catch (error) {
     alert("City not found. Please enter a valid city name!");
@@ -63,12 +70,15 @@ async function checkWeather(city) {
 
 // Event listener for search button
 searchBtn.addEventListener("click", () => {
-  checkWeather(searchBox.value);
+  checkWeather(searchBox.value.trim());
 });
 
-// 🚀 Added Enter key event
-searchBox.addEventListener("keyup", (event) => {
-  if (event.key === "Enter") {
-    checkWeather(searchBox.value);
-  }
-});
+// Event listener for Enter key in input field
+if (searchBox) {
+  searchBox.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      checkWeather(searchBox.value.trim());
+    }
+  });
+}
+
